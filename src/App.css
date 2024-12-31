@@ -1,0 +1,21 @@
+body {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-style: italic;
+}
+/* **************** NAVIGATION BAR ************** */
+.Header {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    background-color: aquamarine;
+    font-size: 16px;
+    font-weight: 600;
+    font-style: italic;
+}
+a {
+    color: black;
+    text-decoration: none;
+}
+.Hover a:hover, i:hover {
+    color: rgb(78, 94, 230);
+}
