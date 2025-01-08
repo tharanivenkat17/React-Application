@@ -1,10 +1,9 @@
-import React, { Component } from 'react'
+import React from 'react'
 import './Categories.css';
 
-export class Categories extends Component {
-  render() {
-    return (
-      <div className='Categories'>
+function Categories() {
+  return (
+    <div className='Categories'>
         <div className='Flex'>
           <div>
             <img src="https://img.freepik.com/premium-photo/close-up-bearded-dragon-with-stuffed-toys_1048944-1910024.jpg?ga=GA1.1.1399380847.1735539146&semt=ais_hybrid" alt="img" />
@@ -47,10 +46,8 @@ export class Categories extends Component {
             <p>Superheroes Toys</p>
           </div>
         </div>
-
       </div>
-    )
-  }
+  )
 }
 
 export default Categories

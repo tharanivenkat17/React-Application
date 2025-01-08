@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import './Login.css';
+import axios from 'axios';
 
 export class Login extends Component {
   constructor(props) {
@@ -29,21 +30,71 @@ export class Login extends Component {
 
   submitForm(event) {
     event.preventDefault();
-    if (this.validateForm()) { //if true all field should be clear
+    if (this.validateForm()) { // If form is valid
       let fields = {
         email: '',
         password: ''
       };
-
-      this.setState({
-        userFields: fields,
+      const { email, password } = this.state.userFields;
+      const data = { email, password };
+      // get the data from the db.json and validate whether email is exist or not
+      axios.get(`http://localhost:4200/UserDetails?email=${data.email}`).then((response) => {
+        if (response.data.length === 0) {
+          this.setState({
+            errorFields: { email: 'No user found with this email' }
+          });
+        } else {
+          const user = response.data[0];
+          if (user.password === data.password) {
+            // Successful login
+            alert('Login successful!');
+            this.setState({
+              userFields: fields,
+            });
+          } else {
+            this.setState({
+              errorFields: { password: 'Password does not match' }
+            });
+          }
+        }
+      }).catch((error) => {
+        console.log("Error while verifying user details:", error);
+        this.setState({
+          errorFields: { email: 'Unable to verify email at this time' }
+        });
       });
-      alert("Form Submitted");
-      console.log(`
-        DETAILS ENTERED:
-            Email: ${this.state.userFields.email}
-            password: ${this.state.userFields.password}`);
     }
+    // if (this.validateForm()) { //if true all field should be clear
+    //   let fields = {
+    //     email: '',
+    //     password: ''
+    //   };
+    //   var data = {
+    //     "email": this.state.userFields.email,
+    //     "password": this.state.userFields.password
+    //   }
+
+    //   // get the data from the db.json and validate whether email is exist or not
+    //   axios.get(`http://localhost:4200/UserDetails?email=${data.email}`, data).then((response) => {
+    //     console.log(response);
+    //     // get the data from the db.json and validate whether email is exist or not
+    //     axios.get(`http://localhost:4200/UserDetails?password=${data.password}`, data).then((response1) => {
+    //       console.log(response1);
+    //       if(response['data.email'].length===0 && response1['data.password'].length){
+
+    //       }
+    //     })
+    //   })
+
+    //   this.setState({
+    //     userFields: fields,
+    //   });
+    //   alert("Form Submitted");
+    //   console.log(`
+    //     DETAILS ENTERED:
+    //         Email: ${this.state.userFields.email}
+    //         password: ${this.state.userFields.password}`);
+    // }
   }
   validateForm() {
     let field = this.state.userFields;
@@ -56,10 +107,10 @@ export class Login extends Component {
       error['email'] = 'Enter a valid email';
     }
     // password Validation
-    var passwordPattern = /^[a-zA-Z0-9!@#$%^&*]{7,}$/;
+    var passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{7,}$/;
     if (!passwordPattern.test(field['password'])) {
       formValid = false;
-      error['password'] = `password must contain letters,number,special character & 7 characters long`;
+      error['password'] = `Password must be like "Test123@"`;
     }
     this.setState({
       errorFields: error,
@@ -67,55 +118,53 @@ export class Login extends Component {
     return formValid;
   }
 
-
-
   render() {
     return (
-      <div className='Login'>
-        <div className='FlexPage'>
-          {/* Image */}
-          <div className='Image'>
-            <img className='LoginImage' src="https://img.freepik.com/premium-vector/sign-up-concept-illustration-free-vector_269560-12.jpg?semt=ais_hybrid" alt="img" />
-          </div>
-          <div className='Form'>
-            <form onSubmit={this.submitForm} name="form" method='post'>
-              <h2>Sign In Form</h2>
+        <div className='Login'>
+          <div className='FlexPage'>
+            {/* Image */}
+            <div className='Image'>
+              <img className='LoginImage' src="https://img.freepik.com/premium-vector/sign-up-concept-illustration-free-vector_269560-12.jpg?semt=ais_hybrid" alt="img" />
+            </div>
+            <div className='Form'>
+              <form onSubmit={this.submitForm} name="form" method='post'>
+                <h2>Sign In Form</h2>
 
-              <div className='Flex'>
-                <label htmlFor="email">Email Id</label>
-                <input type="text"
-                  className="border" //css
-                  name="email" //input value
-                  id='email' //unique identification value
-                  value={this.state.userFields.email} //binding
-                  placeholder='Enter Email'
-                  onChange={this.handleChange} //handle the change in the input
-                  required //field should not be empty
-                />
-                <span>{this.state.errorFields.email}</span>
-              </div>
-              <div className='Flex'>
-                <label htmlFor="password">Password</label>
-                <input type="password"
-                  className="border"
-                  name="password"
-                  id='password'
-                  value={this.state.userFields.password}
-                  placeholder='Enter Password'
-                  onChange={this.handleChange}
-                  required
-                />
-                <span>{this.state.errorFields.password}</span>
-              </div>
-              <br />
-              <div className='button'>
-                <input className="submit" type='submit' value=" Sign In " />
-                <p className='loginbutton'>Click <Link to="/SignUp" >Sign Up</Link> to create your account</p>
-              </div>
-            </form>
+                <div className='Flex'>
+                  <label htmlFor="email">Email Id</label>
+                  <input type="text"
+                    className="border" //css
+                    name="email" //input value
+                    id='email' //unique identification value
+                    value={this.state.userFields.email} //binding
+                    placeholder='Enter Email'
+                    onChange={this.handleChange} //handle the change in the input
+                    required //field should not be empty
+                  />
+                  <span>{this.state.errorFields.email}</span>
+                </div>
+                <div className='Flex'>
+                  <label htmlFor="password">Password</label>
+                  <input type="password"
+                    className="border"
+                    name="password"
+                    id='password'
+                    value={this.state.userFields.password}
+                    placeholder='Enter Password'
+                    onChange={this.handleChange}
+                    required
+                  />
+                  <span>{this.state.errorFields.password}</span>
+                </div>
+                <br />
+                <div className='button'>
+                  <input className="submit" type='submit' value=" Sign In " />
+                  <p className='loginbutton'>Click <Link to="/SignUp" >Sign Up</Link> to create your account</p>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
-      </div>
 
     )
   }

@@ -1,8 +1,18 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './SignUp.css';
+import axios from 'axios';
 
-export class SignUp extends Component {
+
+function SignUp() {
+    const navigateRef = useNavigate();
+    return (
+        <SignUpClass navigate={navigateRef}></SignUpClass>
+    )
+}
+
+
+export class SignUpClass extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -13,12 +23,13 @@ export class SignUp extends Component {
                 password: '',
                 confirmpassword: ''
             },
-            errorFields: {},
+            errorFields: {}
         };
         // bind(this) is used in class components to bind the method to the current instance of the class.
         this.handleChange = this.handleChange.bind(this);
         this.submitForm = this.submitForm.bind(this);
     }
+
 
     handleChange(event) {
         let field = this.state.userFields;
@@ -38,16 +49,36 @@ export class SignUp extends Component {
                 confirmpassword: ''
             };
 
-            this.setState({
-                userFields: fields,
-            });
-            alert("Form Submitted");
-            console.log(`
-            DETAILS ENTERED:
-                Name: ${this.state.userFields.name}
-                Email: ${this.state.userFields.email}
-                password: ${this.state.userFields.password}
-                confirmpassword: ${this.state.userFields.confirmpassword}`);
+            var data = {
+                "username": this.state.userFields.name,
+                "email": this.state.userFields.email,
+                "password": this.state.userFields.password
+            }
+            // get the data from the db.json and validate whether email is exist or not
+            axios.get(`http://localhost:4200/UserDetails?email=${data.email}`, data).then((response) => {
+                console.log(response);
+
+                //if the email is already exist length>0 otherwise length==0. if length=0 data post to the db.json
+                if (response['data'].length === 0) {
+                    axios.post("http://localhost:4200/UserDetails", data).then((response1) => {
+                        console.log(response1)
+                        alert("Sign-Up Form Submitted Successfully");
+                        this.setState({
+                            userFields: fields
+                        });
+                        this.props.navigate('/login');
+
+                    }).catch((error) => {
+                        console.log("Unable to retrieve data");
+                    })
+                } else {
+                    //if length>0 or email is already exist
+                    alert("Already Exists Email")
+                }
+
+            }).catch((error) => {
+                console.log("Unable to retrieve data");
+            })
         }
     }
     validateForm() {
@@ -55,43 +86,38 @@ export class SignUp extends Component {
         let error = {};
         let formValid = true;
         // name must be alphabetic
-        var namePattern = /^[a-zA-Z]+$/;
+        var namePattern = /^[a-zA-Z]{4,}$/;
         if (!namePattern.test(field['name'])) {
             formValid = false;
-            error['name'] = 'name must only contain alphabets';
+            error['name'] = 'Name must be 4 characters long';
         }
         // Email is valid
-        var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,8}$/;
+        var emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,8}$/;
         if (!emailPattern.test(field['email'])) {
             formValid = false;
-            error['email'] = 'Enter a valid email';
+            error['email'] = 'Enter the valid email';
         }
         // password Validation
-        var passwordPattern = /^[a-zA-Z0-9!@#$%^&*]{7,}$/;
+        var passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{7,}$/;
         if (!passwordPattern.test(field['password'])) {
             formValid = false;
-            error['password'] = `password must contain:
-                                    upper & lower letters
-                                    Include a number
-                                    Contain a special character
-                                    Be at least 7 characters long
-                                `;
+            error['password'] = `Password must be like "Test123@"`;
         }
-        // confirmpassword must be alphabetic
-        // var confirmpasswordPattern = /^[a-zA-Z]+$/;
-
+        // confirmpassword must match password
         if (!((field['password']) === (field['confirmpassword']))) {
             formValid = false;
-            error['confirmpassword'] = 'confirmpassword must match password';
+            error['confirmpassword'] = 'Confirm Password match the password';
         }
         this.setState({
             errorFields: error,
         })
         return formValid;
     }
+
     render() {
         return (
             <div className='SignUp'>
+
                 <div className='FlexPage'>
                     <div className='Image'>
                         <img className='SignUpImage' src="https://img.freepik.com/premium-vector/sign-up-smartphone-man-near-mobile-phone-enters-login-password-authorizations_1002658-5145.jpg?semt=ais_hybrid" alt="img" />
@@ -100,7 +126,7 @@ export class SignUp extends Component {
                         <form onSubmit={this.submitForm} name="form" method='post'>
                             <h2>Sign-Up Form</h2>
                             <div className='Flex'>
-                                <label htmlFor="name">User Name</label>
+                                <label htmlFor="name">Name</label>
                                 <input type="text"
                                     className="border"
                                     name="name"

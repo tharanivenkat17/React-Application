@@ -1,0 +1,70 @@
+{
+  "UserDetails": [
+    {
+      "id": 1,
+      "name": "Sivatharani",
+      "email": "siva@gmail.com",
+      "password": "t1a7@V01"
+    },
+    {
+      "username": "sandhiya",
+      "email": "sandhiya@gmail.com",
+      "password": "sandhiya",
+      "id": 2
+    },
+    {
+      "username": "Karthi",
+      "email": "karthi@gmail.com",
+      "password": "Karthi1@",
+      "id": 3
+    },
+    {
+      "username": "Raghul",
+      "email": "Raghul@gmail.com",
+      "password": "Raghul@1",
+      "id": 4
+    },
+    {
+      "username": "Harish",
+      "email": "harish@gmail.com",
+      "password": "Harish@1",
+      "id": 5
+    },
+    {
+      "username": "Gopi",
+      "email": "gopi@gmail.com",
+      "password": "Gopi@001",
+      "id": 6
+    },
+    {
+      "username": "Sharan",
+      "email": "sharan@gmail.com",
+      "password": "Sharan@1",
+      "id": 7
+    },
+    {
+      "username": "Chandra",
+      "email": "chandra@gmail.com",
+      "password": "Chandra@1",
+      "id": 8
+    },
+    {
+      "username": "Jo",
+      "email": "jo@gmail.com",
+      "password": "Jothi@123",
+      "id": 9
+    },
+    {
+      "username": "Priya",
+      "email": "priya@gmail.com",
+      "password": "Priya@11",
+      "id": 10
+    },
+    {
+      "name": "hello",
+      "email": "hello@gmail.com",
+      "password": "Hello@123",
+      "id": 11
+    }
+  ]
+}

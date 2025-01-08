@@ -1,0 +1,50 @@
+
+  .banner {
+    background-image: url(https://img.freepik.com/premium-photo/soft-fluffy-brightly-colored-bird-feathers_126745-2158.jpg?ga=GA1.1.1399380847.1735539146&semt=ais_hybrid);
+    color: white;
+    background-repeat: no-repeat;
+    /* background-attachment: fixed; */
+    background-size: cover;
+    text-align: center;
+    font-size: 22px;
+    padding: 50px;
+  }
+  
+  .featured-toys {
+    text-align: center;
+    padding: 30px;
+  }
+  
+  .toy-list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .toy-item {
+    background-color: #f1faee;
+    padding: 30px;
+    width: 220px;
+    text-align: center;
+  }
+  
+  .toy-item img {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+  }
+  
+  .add-to-cart-button {
+    background-color: #111212;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    margin-top: 5px;
+    border-radius: 5px;
+  }
+  
+  .add-to-cart-button:hover {
+    background-color: hsl(90, 50%, 58%);
+  }

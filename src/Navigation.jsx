@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import { Routes, Route, Link } from 'react-router-dom';
 import './App.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Home from './Home';
 import Categories from './Categories';
 import Login from './Login';
 import Cart from './Cart';
 import SignUp from './SignUp';
+import AboutUs from './AboutUs';
+import LoginFunctional from './LoginFunctional';
+import SignUpFunctional from './SignUpFunctional';
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 export class Navigation extends Component {
@@ -14,14 +16,14 @@ export class Navigation extends Component {
         return (
             <div>
                 <div className='Header'>
-                    <div>
+                    <div className='Home'>
                         <Link to="/" >ToyNest</Link>
                     </div>
                     <div className='Hover'>
                         <Link to="/Categories">
                             <i class="fa-solid fa-layer-group"></i> Categories
                         </Link> &nbsp;&nbsp;
-                        <Link to="/About">
+                        <Link to="/AboutUs">
                             <i class="fa-solid fa-circle-info"></i> About us
                         </Link> &nbsp;&nbsp;
                         <Link to="/Cart">
@@ -36,10 +38,12 @@ export class Navigation extends Component {
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/Categories" element={<Categories />} />
-                    <Route path="/SignUp" element={<SignUp />} />
+                    {/* <Route path="/SignUp" element={<SignUp />} /> */}
+                    <Route path="/SignUp" element={<SignUpFunctional />} />
                     <Route path="/Cart" element={<Cart />} />
-                    <Route path="/Login" element={<Login />} />
-
+                    <Route path="/Login" element={<LoginFunctional />} />
+                    {/* <Route path="/Login" element={<Login />} /> */}
+                    <Route path="/AboutUs" element={<AboutUs />} />
                 </Routes>
             </div>
 

@@ -62,6 +62,7 @@
     text-align: center;
 }
 .Login .loginbutton a {
+    color: rgb(5, 15, 71);
     text-decoration: underline;
 }
 .Login .loginbutton a:hover {
