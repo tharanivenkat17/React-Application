@@ -1,0 +1,16 @@
+.about {
+    padding: 10px;
+    background-color: #264653;
+    color: white;
+    text-align: center;
+  }
+.i-footer{
+    font-size: 25px;
+}
+.i-footer i{
+  padding: 2px 8px 2px 8px;
+
+}
+hr{
+  margin: 0px 400px 0px 400px;
+}

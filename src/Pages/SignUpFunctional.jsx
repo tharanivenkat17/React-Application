@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import './SignUp.css';
+import '../Stylesheet/SignUp.css';
 import axios from 'axios';
 
 function SignUpFunctional() {
@@ -34,7 +34,7 @@ function SignUpFunctional() {
                 console.log(response)
                     //if the email is already exist length>0 otherwise length==0. if length=0 data post to the db.json
                     if (response['data'].length === 0) {
-                        axios.post("http://localhost:4200/UserDetails", data).then((response1) => {
+                        axios.post(`http://localhost:4200/UserDetails`, data).then((response1) => {
                             console.log(response1)
                             alert("Sign-Up Form Submitted Successfully");
                             setState({
@@ -45,15 +45,16 @@ function SignUpFunctional() {
                         })
 
                     } else {
-                        alert("Already Exists Email")
+                        alert("Already Exists Email, Please Login")
+                        navigate('/Login')
                     }
                 })
                 .catch((error) => {
                     console.log("Error while verifying user details:", error);
-                    // setState(prevState => ({
-                    //     ...prevState,
-                    //     errorFields: { email: 'Unable to verify email at this time' }
-                    // }));
+                    setState(prevState => ({
+                        ...prevState,
+                        errorFields: { email: 'Unable to verify email at this time' }
+                    }));
                 });
         }
     }

@@ -1,15 +1,14 @@
 import React, { Component } from 'react'
 import { Routes, Route, Link } from 'react-router-dom';
-import './App.css';
-import Home from './Home';
-import Categories from './Categories';
-import Login from './Login';
-import Cart from './Cart';
-import SignUp from './SignUp';
-import AboutUs from './AboutUs';
-import LoginFunctional from './LoginFunctional';
-import SignUpFunctional from './SignUpFunctional';
+import '../Stylesheet/Navigation.css';
+import Home from '../Pages/HomePage';
+import Categories from '../Pages/CategoriesPage';
+import AboutUs from '../Pages/AboutUs';
+import Cart from '../Pages/Cart';
+import SignUpFunctional from '../Pages/SignUpFunctional';
+import LoginFunctional from '../Pages/LoginFunctional';
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 
 export class Navigation extends Component {
     render() {
@@ -36,13 +35,11 @@ export class Navigation extends Component {
                 </div>
 
                 <Routes>
-                    <Route path="/" element={<Home />} />
+                    <Route path="/" element={ <Home /> } />
                     <Route path="/Categories" element={<Categories />} />
-                    {/* <Route path="/SignUp" element={<SignUp />} /> */}
                     <Route path="/SignUp" element={<SignUpFunctional />} />
                     <Route path="/Cart" element={<Cart />} />
                     <Route path="/Login" element={<LoginFunctional />} />
-                    {/* <Route path="/Login" element={<Login />} /> */}
                     <Route path="/AboutUs" element={<AboutUs />} />
                 </Routes>
             </div>

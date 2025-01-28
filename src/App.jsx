@@ -1,6 +1,6 @@
 import './App.css';
-import Footer from './Footer';
-import Navigation from './Navigation';
+import Footer from './Components/Footer';
+import Navigation from './Components/Navigation';
 import { BrowserRouter } from 'react-router-dom';
 
 

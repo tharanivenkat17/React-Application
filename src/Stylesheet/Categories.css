@@ -1,0 +1,25 @@
+  .featured-categoriess {
+    text-align: center;
+    padding: 10px;
+  }
+  
+  .categories-list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .categories-item {
+    background-color: #e3e3e3;
+    padding: 20px;
+    width: 350px;
+    text-align: center;
+  }
+  
+  .categories-item img {
+    width: 320px;
+    height: 220px;
+    object-fit: contain;
+  }
+  
